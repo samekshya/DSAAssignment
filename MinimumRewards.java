@@ -39,4 +39,4 @@ public class MinimumRewards {
         int[] ratings2 = {1, 2, 2};
         System.out.println("Minimum rewards needed: " + minRewards(ratings2)); // Output: 4
     }
-
+}
