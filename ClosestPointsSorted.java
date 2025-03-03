@@ -1,4 +1,7 @@
-//Question no 2(b)
+//Question no 2 (b)
+// Description: Finds the closest pair of points based on Manhattan distance.
+// Uses sorting to reduce comparisons and efficiently find the lexicographically smallest closest pair.
+
 import java.util.*;
 
 public class ClosestPointsSorted {
@@ -44,6 +47,7 @@ public class ClosestPointsSorted {
         return result; // Return the best closest pair of indices
     }
 
+    // Main function to test the implementation
     public static void main(String[] args) {
         // Test Case 1
         int[] x_coords1 = {1, 2, 3, 2, 4};
