@@ -1,3 +1,4 @@
+//Question no 2(b)
 import java.util.*;
 
 public class ClosestPointsSorted {
