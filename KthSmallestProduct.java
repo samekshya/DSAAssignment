@@ -1,3 +1,7 @@
+//Question no 1 (b)
+// Description: Finds the k-th smallest product from two sorted arrays.
+// Uses binary search to efficiently count valid pairs and locate the required product.
+
 import java.util.Arrays;
 
 public class KthSmallestProduct {
@@ -7,10 +11,10 @@ public class KthSmallestProduct {
         int count = 0;
         int n = arr2.length;
         
-        for (int num : arr1) { // Go through each number in the first array
+        for (int num : arr1) { // Iterate through the first array
             if (num >= 0) {  // If the number is positive or zero
                 int low = 0, high = n;
-                while (low < high) { // Use binary search to count valid pairs
+                while (low < high) { // Binary search to count valid pairs
                     int midIndex = low + (high - low) / 2;
                     if ((long) num * arr2[midIndex] <= mid) {
                         low = midIndex + 1; // Move right if product is within limit
@@ -21,7 +25,7 @@ public class KthSmallestProduct {
                 count += low; // Add count of valid pairs
             } else {  // If the number is negative
                 int low = 0, high = n;
-                while (low < high) { // Use binary search again
+                while (low < high) { // Binary search again
                     int midIndex = low + (high - low) / 2;
                     if ((long) num * arr2[midIndex] > mid) {
                         low = midIndex + 1; // Move right if product is too high
@@ -35,6 +39,7 @@ public class KthSmallestProduct {
         return count; // Return the number of valid pairs
     }
 
+    // Main function to find the k-th smallest product
     public static long kthSmallestProduct(int[] returns1, int[] returns2, int k) {
         Arrays.sort(returns1);  // Sort first array
         Arrays.sort(returns2);  // Sort second array
@@ -43,7 +48,7 @@ public class KthSmallestProduct {
         long right = (long) returns1[returns1.length - 1] * returns2[returns2.length - 1]; // Largest possible product
         
         while (left < right) { // Binary search to find the kth smallest product
-            long mid = left + (right - left) / 2; // Middle value
+            long mid = left + (right - left) / 2; // Mid-point value
             int count = countPairs(returns1, returns2, mid); // Count valid pairs
             
             if (count < k) {
@@ -52,13 +57,16 @@ public class KthSmallestProduct {
                 right = mid;  // Decrease range otherwise
             }
         }
-        return left; // The kth smallest product
+        return left; // The k-th smallest product
     }
 
+    // Main function to test the implementation
     public static void main(String[] args) {
-        int[] returns1 = {-4, -2, 0, 3}; // Example array 1
-        int[] returns2 = {2, 4}; // Example array 2
+        int[] returns1 = {-4, -2, 0, 3}; // Example input array 1
+        int[] returns2 = {2, 4}; // Example input array 2
         int k = 6; // Find the 6th smallest product
-        System.out.println("The " + k + "th smallest product is: " + kthSmallestProduct(returns1, returns2, k)); // Print result
+        
+        // Print the result
+        System.out.println("The " + k + "th smallest product is: " + kthSmallestProduct(returns1, returns2, k));
     }
 }
