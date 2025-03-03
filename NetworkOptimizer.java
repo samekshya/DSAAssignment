@@ -1,6 +1,9 @@
-//Question no.5
-import javax.swing.*;
+//Question no 5
+// Description: Implements a network optimizer using a GUI.
+// Allows adding nodes (servers/clients) and edges (connections) with costs.
+// Provides options to optimize network and find shortest paths.
 
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -9,8 +12,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-
-class Node {
+// Represents a node (server or client) in the network
+ class Node {
     int id;
     int x, y;
     
@@ -21,6 +24,7 @@ class Node {
     }
 }
 
+// Represents a connection (edge) between two nodes with an associated cost
 class Edge {
     Node src, dest;
     int cost;
@@ -32,12 +36,14 @@ class Edge {
     }
 }
 
+// Graph structure to manage nodes and edges
 class Graph {
-    private final Map<Integer, Node> nodes = new HashMap<>();
-    private final List<Edge> edges = new ArrayList<>();
+    private final Map<Integer, Node> nodes = new HashMap<>(); // Stores nodes by ID
+    private final List<Edge> edges = new ArrayList<>(); // Stores edges with costs
     private final Random rand = new Random();
     
     public void addNode(int id) {
+        // Randomly place the node on the screen
         if (!nodes.containsKey(id)) {
             int x = rand.nextInt(400) + 50;
             int y = rand.nextInt(400) + 50;
@@ -46,6 +52,7 @@ class Graph {
     }
     
     public void addEdge(int src, int dest, int cost) {
+        // Add an edge only if both nodes exist
         if (nodes.containsKey(src) && nodes.containsKey(dest)) {
             edges.add(new Edge(nodes.get(src), nodes.get(dest), cost));
         }
@@ -60,14 +67,17 @@ class Graph {
     }
     
     public void optimizeNetwork() {
+        // Sort edges by cost (similar to Kruskal’s MST approach)
         edges.sort(Comparator.comparingInt(e -> e.cost));
     }
     
     public List<Integer> shortestPath(int src, int dest) {
+        // Implements Dijkstra's algorithm for shortest path calculation
         Map<Integer, Integer> distances = new HashMap<>();
         Map<Integer, Integer> predecessors = new HashMap<>();
         PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
         
+        // Initialize distances
         for (int node : nodes.keySet()) {
             distances.put(node, Integer.MAX_VALUE);
         }
@@ -88,6 +98,7 @@ class Graph {
             }
         }
         
+        // Construct shortest path from predecessors
         List<Integer> path = new ArrayList<>();
         for (Integer at = dest; at != null; at = predecessors.get(at)) {
             path.add(at);
@@ -97,8 +108,9 @@ class Graph {
     }
 }
 
+// GUI Application for Network Optimization
 public class NetworkOptimizer extends JFrame {
-    private final Graph graph = new Graph();
+    private final Graph graph = new Graph(); // Graph instance
     private final JButton addNodeButton, addEdgeButton, optimizeButton, shortestPathButton;
     private final GraphPanel graphPanel;
 
@@ -108,7 +120,7 @@ public class NetworkOptimizer extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        JPanel controlPanel = new JPanel();
+        JPanel controlPanel = new JPanel(); // Control buttons panel
         addNodeButton = new JButton("Add Node");
         addEdgeButton = new JButton("Add Edge");
         optimizeButton = new JButton("Optimize Network");
@@ -121,7 +133,7 @@ public class NetworkOptimizer extends JFrame {
         
         add(controlPanel, BorderLayout.SOUTH);
         
-        graphPanel = new GraphPanel();
+        graphPanel = new GraphPanel(); // Graph visualization panel
         add(graphPanel, BorderLayout.CENTER);
         
         addNodeButton.addActionListener(e -> addNode());
@@ -131,12 +143,14 @@ public class NetworkOptimizer extends JFrame {
     }
     
     private void addNode() {
+        // User inputs node ID
         int id = Integer.parseInt(JOptionPane.showInputDialog("Enter node ID:"));
         graph.addNode(id);
         graphPanel.repaint();
     }
     
     private void addEdge() {
+        // Ensure at least two nodes exist before adding an edge
         if (graph.getNodes().size() < 2) {
             JOptionPane.showMessageDialog(this, "At least two nodes are required to add an edge.");
             return;
@@ -167,6 +181,7 @@ public class NetworkOptimizer extends JFrame {
         graphPanel.repaint();
     }
     
+    // Custom panel for drawing the graph
     class GraphPanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {

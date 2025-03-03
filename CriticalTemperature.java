@@ -1,3 +1,7 @@
+//Question no 1 a
+// Description: Solves the critical temperature problem using dynamic programming.
+// Determines the minimum number of measurements required to find the threshold temperature.
+
 public class CriticalTemperature {
 
     // Function to calculate the minimum number of measurements required
@@ -36,11 +40,10 @@ public class CriticalTemperature {
         int k1 = 1, n1 = 2;
         int k2 = 2, n2 = 6;
         int k3 = 3, n3 = 6;
-        //
 
         // Print the results for given values of k and n
         System.out.println("Minimum tests for k = " + k1 + ", n = " + n1 + ": " + minMeasurements(k1, n1));
         System.out.println("Minimum tests for k = " + k2 + ", n = " + n2 + ": " + minMeasurements(k2, n2));
         System.out.println("Minimum tests for k = " + k3 + ", n = " + n3 + ": " + minMeasurements(k3, n3));
-    };
-};
+    }
+}
