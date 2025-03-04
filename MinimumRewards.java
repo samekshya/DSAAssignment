@@ -1,6 +1,7 @@
 //Question no 2 (a)
 // Description: Determines the minimum rewards required for employees based on performance ratings.
 // Uses a two-pass greedy approach to ensure employees with higher ratings get more rewards.
+//first ma chai summary jasto 
 
 import java.util.*;
 

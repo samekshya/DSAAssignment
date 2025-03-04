@@ -1,6 +1,12 @@
 //Question no 2 (b)
 // Description: Finds the closest pair of points based on Manhattan distance.
 // Uses sorting to reduce comparisons and efficiently find the lexicographically smallest closest pair.
+/*
+ * 
+ * 
+ * 
+ * 
+ */
 
 import java.util.*;
 
