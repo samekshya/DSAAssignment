@@ -1,7 +1,11 @@
-//Question no 5
-// Description: Implements a network optimizer using a GUI.
-// Allows adding nodes (servers/clients) and edges (connections) with costs.
-// Provides options to optimize network and find shortest paths.
+// Question no 5
+// Summary:
+// This program implements a GUI-based network optimizer.
+// - Users can add nodes (representing servers or clients).
+// - Users can add edges (connections between nodes) with associated costs.
+// - Provides functionality to optimize the network (using Minimum Spanning Tree).
+// - Implements Dijkstra’s algorithm to find the shortest path between two nodes.
+// - Uses Java Swing for the graphical interface and visualization.
 
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -13,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 
 // Represents a node (server or client) in the network
- class Node {
+class Node {
     int id;
     int x, y;
     
@@ -42,6 +46,7 @@ class Graph {
     private final List<Edge> edges = new ArrayList<>(); // Stores edges with costs
     private final Random rand = new Random();
     
+    // Function to add a node to the graph
     public void addNode(int id) {
         // Randomly place the node on the screen
         if (!nodes.containsKey(id)) {
@@ -51,8 +56,8 @@ class Graph {
         }
     }
     
+    // Function to add an edge between two existing nodes
     public void addEdge(int src, int dest, int cost) {
-        // Add an edge only if both nodes exist
         if (nodes.containsKey(src) && nodes.containsKey(dest)) {
             edges.add(new Edge(nodes.get(src), nodes.get(dest), cost));
         }
@@ -66,24 +71,25 @@ class Graph {
         return nodes.values();
     }
     
+    // Function to optimize network connections (using Minimum Spanning Tree approach)
     public void optimizeNetwork() {
-        // Sort edges by cost (similar to Kruskal’s MST approach)
-        edges.sort(Comparator.comparingInt(e -> e.cost));
+        edges.sort(Comparator.comparingInt(e -> e.cost)); // Sort edges by cost
     }
     
+    // Function to find the shortest path between two nodes using Dijkstra’s algorithm
     public List<Integer> shortestPath(int src, int dest) {
-        // Implements Dijkstra's algorithm for shortest path calculation
-        Map<Integer, Integer> distances = new HashMap<>();
-        Map<Integer, Integer> predecessors = new HashMap<>();
-        PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(distances::get));
+        Map<Integer, Integer> distances = new HashMap<>(); // Stores shortest distance to each node
+        Map<Integer, Integer> predecessors = new HashMap<>(); // Stores previous node for path reconstruction
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.comparingInt(distances::get)); // Min heap for processing
         
-        // Initialize distances
+        // Initialize distances to infinity, except for source node
         for (int node : nodes.keySet()) {
             distances.put(node, Integer.MAX_VALUE);
         }
         distances.put(src, 0);
         queue.add(src);
         
+        // Process nodes to find shortest paths
         while (!queue.isEmpty()) {
             int current = queue.poll();
             for (Edge edge : edges) {
@@ -98,7 +104,7 @@ class Graph {
             }
         }
         
-        // Construct shortest path from predecessors
+        // Construct the shortest path from source to destination
         List<Integer> path = new ArrayList<>();
         for (Integer at = dest; at != null; at = predecessors.get(at)) {
             path.add(at);
@@ -120,7 +126,7 @@ public class NetworkOptimizer extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        JPanel controlPanel = new JPanel(); // Control buttons panel
+        JPanel controlPanel = new JPanel(); // Panel for buttons
         addNodeButton = new JButton("Add Node");
         addEdgeButton = new JButton("Add Edge");
         optimizeButton = new JButton("Optimize Network");
@@ -133,7 +139,7 @@ public class NetworkOptimizer extends JFrame {
         
         add(controlPanel, BorderLayout.SOUTH);
         
-        graphPanel = new GraphPanel(); // Graph visualization panel
+        graphPanel = new GraphPanel(); // Panel to display the network graph
         add(graphPanel, BorderLayout.CENTER);
         
         addNodeButton.addActionListener(e -> addNode());
@@ -143,14 +149,12 @@ public class NetworkOptimizer extends JFrame {
     }
     
     private void addNode() {
-        // User inputs node ID
         int id = Integer.parseInt(JOptionPane.showInputDialog("Enter node ID:"));
         graph.addNode(id);
         graphPanel.repaint();
     }
     
     private void addEdge() {
-        // Ensure at least two nodes exist before adding an edge
         if (graph.getNodes().size() < 2) {
             JOptionPane.showMessageDialog(this, "At least two nodes are required to add an edge.");
             return;
@@ -187,6 +191,7 @@ public class NetworkOptimizer extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             
+            // Draw edges (connections)
             for (Edge edge : graph.getEdges()) {
                 g.drawLine(edge.src.x, edge.src.y, edge.dest.x, edge.dest.y);
                 int midX = (edge.src.x + edge.dest.x) / 2;
@@ -194,6 +199,7 @@ public class NetworkOptimizer extends JFrame {
                 g.drawString(String.valueOf(edge.cost), midX, midY);
             }
             
+            // Draw nodes (servers/clients)
             for (Node node : graph.getNodes()) {
                 g.fillOval(node.x - 10, node.y - 10, 20, 20);
                 g.drawString(String.valueOf(node.id), node.x - 5, node.y - 15);
@@ -205,3 +211,15 @@ public class NetworkOptimizer extends JFrame {
         SwingUtilities.invokeLater(() -> new NetworkOptimizer().setVisible(true));
     }
 }
+
+// Summary:
+// - This program provides a GUI for adding nodes and edges to represent network connections.
+// - It allows optimizing the network using a Minimum Spanning Tree (MST) approach.
+// - Implements Dijkstra’s algorithm to find the shortest path between any two nodes.
+// - Users can interact with the network through buttons and graphical elements.
+
+// Expected User Actions and Results:
+// - **Adding nodes**: User can input IDs, and nodes will appear at random positions on the GUI.
+// - **Adding edges**: User can define a source, destination, and cost for each connection.
+// - **Optimizing network**: The system sorts edges based on cost for efficiency.
+// - **Finding shortest paths**: The program calculates the shortest route between two nodes using Dijkstra’s algorithm.

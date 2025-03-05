@@ -1,7 +1,11 @@
-//Question no 3b
-// Description: Implements a simple Tetris game using Java Swing.
-// Uses a queue for upcoming blocks and a stack for placed blocks.
-// Implements basic movement, rotation, collision detection, and scoring.
+// Question no 3 (b)
+// Description:
+// This program implements a simple Tetris game using Java Swing.
+// - It uses a **queue** to manage upcoming blocks and a **stack** to track placed blocks.
+// - The game allows **moving, rotating, and dropping** Tetris blocks.
+// - Implements **collision detection** to prevent illegal moves.
+// - Clears completed rows and updates the **score** accordingly.
+// - The game ends when blocks reach the top of the board.
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,6 +57,7 @@ public class TetrisGame extends JPanel implements ActionListener {
         setBackground(Color.BLACK);
         setFocusable(true);
         
+        // Handles keyboard input for moving and rotating blocks
         addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (gameOver) return;
@@ -151,7 +156,7 @@ public class TetrisGame extends JPanel implements ActionListener {
                 if (board[i][j] == 0) full = false;
             }
             if (full) {
-                score += 10;
+                score += 10; // Increase score when a row is cleared
                 System.arraycopy(board, 0, board, 1, i);
                 Arrays.fill(board[0], 0);
             }
@@ -192,3 +197,16 @@ public class TetrisGame extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 }
+
+// Summary:
+// - This program implements basic Tetris mechanics, including movement, rotation, and block placement.
+// - Uses a **queue** to manage upcoming blocks and a **stack** to store placed blocks.
+// - Implements **collision detection** to prevent illegal movements.
+// - The game continuously drops blocks until the board fills up.
+// - Score increases when a row is cleared.
+
+// Expected Gameplay:
+// - Players use arrow keys: Left/Right to move, Up to rotate, Down to drop faster.
+// - Blocks fall automatically every 500 milliseconds.
+// - Completed rows disappear, increasing the score.
+// - The game ends when blocks reach the top.
