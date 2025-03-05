@@ -1,5 +1,5 @@
 // Question no 2 (a)
-// Summary: 
+// Description: 
 // This program determines the minimum number of rewards required for employees based on performance ratings.
 // It ensures that employees with higher ratings get more rewards than their lower-rated neighbors.
 // The algorithm follows a two-pass greedy approach:

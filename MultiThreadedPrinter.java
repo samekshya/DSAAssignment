@@ -1,5 +1,5 @@
 // Question no 6 (a)
-// Summary:
+// Description:
 // This program implements a multi-threaded sequence printer that prints numbers in the order:
 // 0 1 0 2 0 3 0 4 0 5 (for n = 5)
 // - A zero is printed before each number (even or odd).

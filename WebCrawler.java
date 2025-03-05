@@ -1,5 +1,5 @@
 // Question no 6 (b)
-// Summary:
+// Description:
 // This program implements a **multi-threaded web crawler** that fetches and processes web pages concurrently.
 // - It uses a **thread pool** to manage multiple threads efficiently.
 // - A **queue** is used to store URLs to be processed, ensuring a breadth-first-like approach.

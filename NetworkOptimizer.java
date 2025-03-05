@@ -1,5 +1,5 @@
 // Question no 5
-// Summary:
+// Description:
 // This program implements a GUI-based network optimizer.
 // - Users can add nodes (representing servers or clients).
 // - Users can add edges (connections between nodes) with associated costs.

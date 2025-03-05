@@ -1,5 +1,5 @@
 // Question no 4 (b)
-// Summary:
+// Description:
 // This program determines the minimum number of roads that must be traversed to collect all packages in a network of locations.
 // - The locations and roads are represented as a graph.
 // - It uses a **Breadth-First Search (BFS)** approach to find the shortest traversal path.

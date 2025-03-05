@@ -1,5 +1,5 @@
 // Question no 4 (a)
-// Summary:
+// Description:
 // This program finds the **top 3 trending hashtags** in February 2024 from a list of tweets.
 // - It extracts hashtags from tweets and counts their occurrences.
 // - The hashtags are **sorted by frequency** (higher first) and **alphabetically** in case of ties.
